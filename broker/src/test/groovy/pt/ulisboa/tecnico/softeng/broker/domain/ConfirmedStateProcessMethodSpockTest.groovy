@@ -27,15 +27,21 @@ class ConfirmedStateProcessMethodSpockTest extends SpockRollbackTestAbstractClas
         rentingData = Mock(RestRentingData)
         bankData = Mock(RestBankOperationData)
         roomBookingData = Mock(RestRoomBookingData)
+
         activityInterface = Mock(ActivityInterface)
         hotelInterface = Mock(HotelInterface)
         carInterface = Mock(CarInterface)
         bankInterface = Mock(BankInterface)
         taxInterface = Mock(TaxInterface)
+        
+        def services = new ServiceLayer()
+        services.setActivityInterface(activityInterface)
+        services.setHotelInterface(hotelInterface)
+        services.setCarInterface(carInterface)
+        services.setBankInterface(bankInterface)
+        services.setTaxInterface(taxInterface)
 
-
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN,
-                activityInterface, hotelInterface, carInterface, bankInterface, taxInterface)
+        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

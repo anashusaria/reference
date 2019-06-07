@@ -13,8 +13,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     def success() {
         when: 'a broker is created'
-        def broker = new Broker(BROKER_CODE, BROKER_NAME, BROKER_NIF, BROKER_IBAN,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), new TaxInterface())
+        def broker = new Broker(BROKER_CODE, BROKER_NAME, BROKER_NIF, BROKER_IBAN, new ServiceLayer())
 
         then: 'the attributes are correctly set'
         broker.getCode().equals(BROKER_CODE)
@@ -26,8 +25,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Unroll('#label: #broker, #name, #nif_seller, #nif_buyer, #iban')
     def 'invalid arguments'() {
         when: 'a broker is created'
-        new Broker(broker, name, nif, iban,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), new TaxInterface())
+        new Broker(broker, name, nif, iban, new ServiceLayer())
 
         then: 'an exception is thrown'
         thrown(BrokerException)
@@ -52,12 +50,10 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Unroll('duplicate #label')
     def 'unique verifications'() {
         given: 'a broker'
-        def broker = new Broker(code_one, BROKER_NAME, nif_one, BROKER_IBAN,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), new TaxInterface())
+        def broker = new Broker(code_one, BROKER_NAME, nif_one, BROKER_IBAN, new ServiceLayer())
 
         when: 'another broker is created'
-        new Broker(code_two, BROKER_NAME, nif_two, BROKER_IBAN,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), new TaxInterface())
+        new Broker(code_two, BROKER_NAME, nif_two, BROKER_IBAN, new ServiceLayer())
 
         then: 'an exception is thrown'
         thrown(BrokerException)

@@ -7,6 +7,7 @@ import pt.ulisboa.tecnico.softeng.broker.domain.Adventure;
 import pt.ulisboa.tecnico.softeng.broker.domain.Broker;
 import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
+import pt.ulisboa.tecnico.softeng.broker.domain.ServiceLayer;
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.*;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
@@ -30,7 +31,7 @@ public class BrokerInterface {
     @Atomic(mode = TxMode.WRITE)
     public static void createBroker(BrokerData brokerData) {
         new Broker(brokerData.getCode(), brokerData.getName(), brokerData.getNif(),
-                brokerData.getIban(), new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), new TaxInterface());
+                brokerData.getIban(), new ServiceLayer());
     }
 
     @Atomic(mode = TxMode.READ)

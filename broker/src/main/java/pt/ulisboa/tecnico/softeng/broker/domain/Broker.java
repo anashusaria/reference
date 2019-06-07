@@ -9,15 +9,9 @@ import pt.ulisboa.tecnico.softeng.broker.services.remote.dataobjects.RestRoomBoo
 import java.util.Objects;
 
 public class Broker extends Broker_Base {
-    private ActivityInterface activityInterface;
-    private HotelInterface hotelInterface;
-    private CarInterface carInterface;
-    private BankInterface bankInterface;
-    private TaxInterface taxInterface;
+    private ServiceLayer services;
 
-    public Broker(String code, String name, String nif, String iban,
-                  ActivityInterface activityInterface, HotelInterface hotelInterface, CarInterface carInterface,
-                  BankInterface bankInterface, TaxInterface taxInterface) {
+    public Broker(String code, String name, String nif, String iban, ServiceLayer services) {
         checkArguments(code, name, nif, iban);
 
         setCode(code);
@@ -25,11 +19,7 @@ public class Broker extends Broker_Base {
         setNif(nif);
         setIban(iban);
 
-        this.activityInterface = activityInterface;
-        this.hotelInterface = hotelInterface;
-        this.carInterface = carInterface;
-        this.bankInterface = bankInterface;
-        this.taxInterface = taxInterface;
+        this.services = services;
 
         FenixFramework.getDomainRoot().addBroker(this);
     }
@@ -104,39 +94,39 @@ public class Broker extends Broker_Base {
 
 
     public ActivityInterface getActivityInterface() {
-        if (this.activityInterface == null) {
-            this.activityInterface = new ActivityInterface();
+        if (this.services == null) {
+            this.services = new ServiceLayer();
         }
 
-        return this.activityInterface;
+        return this.services.getActivityInterface();
     }
 
     public HotelInterface getHotelInterface() {
-        if (this.hotelInterface == null) {
-            this.hotelInterface = new HotelInterface();
+        if (this.services == null) {
+            this.services = new ServiceLayer();
         }
-        return this.hotelInterface;
+        return this.services.getHotelInterface();
     }
 
     CarInterface getCarInterface() {
-        if (this.carInterface == null) {
-            this.carInterface = new CarInterface();
+        if (this.services == null) {
+            this.services = new ServiceLayer();
         }
-        return this.carInterface;
+        return this.services.getCarInterface();
     }
 
     public BankInterface getBankInterface() {
-        if (this.bankInterface == null) {
-            this.bankInterface = new BankInterface();
+        if (this.services == null) {
+            this.services = new ServiceLayer();
         }
-        return this.bankInterface;
+        return this.services.getBankInterface();
     }
 
     TaxInterface getTaxInterface() {
-        if (this.taxInterface == null) {
-            this.taxInterface = new TaxInterface();
+        if (this.services == null) {
+            this.services = new ServiceLayer();
         }
-        return this.taxInterface;
+        return this.services.getTaxInterface();
     }
 
 }

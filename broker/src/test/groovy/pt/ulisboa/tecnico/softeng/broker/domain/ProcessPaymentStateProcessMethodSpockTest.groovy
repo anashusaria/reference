@@ -15,8 +15,11 @@ class ProcessPaymentStateProcessMethodSpockTest extends SpockRollbackTestAbstrac
     @Override
     def populate4Test() {
         bankInterface = Mock(BankInterface)
-        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), bankInterface, new TaxInterface())
+
+        def services = new ServiceLayer()
+        services.setBankInterface(bankInterface)
+
+        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

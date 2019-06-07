@@ -24,9 +24,13 @@ class CancelledStateProcessMethodSpockTest extends SpockRollbackTestAbstractClas
         hotelInterface = Mock(HotelInterface)
         carInterface = Mock(CarInterface)
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN,
-                activityInterface, hotelInterface, carInterface, bankInterface,
-                new TaxInterface())
+        def services = new ServiceLayer()
+        services.setActivityInterface(activityInterface)
+        services.setBankInterface(bankInterface)
+        services.setHotelInterface(hotelInterface)
+        services.setCarInterface(carInterface)
+
+        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
 
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
 

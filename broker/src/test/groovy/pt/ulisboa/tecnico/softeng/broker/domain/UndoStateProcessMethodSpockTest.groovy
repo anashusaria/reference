@@ -20,8 +20,15 @@ class UndoStateProcessMethodSpockTest extends SpockRollbackTestAbstractClass {
         carInterface = Mock(CarInterface)
         bankInterface = Mock(BankInterface)
         taxInterface = Mock(TaxInterface)
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN,
-                activityInterface, hotelInterface, carInterface, bankInterface, taxInterface)
+
+        def services = new ServiceLayer()
+        services.setActivityInterface(activityInterface)
+        services.setHotelInterface(hotelInterface)
+        services.setCarInterface(carInterface)
+        services.setBankInterface(bankInterface)
+        services.setTaxInterface(taxInterface)
+
+        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 
