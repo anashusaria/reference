@@ -13,13 +13,13 @@ public class Hotel extends Hotel_Base {
     public static final int SCALE = 10000;
     static final int CODE_SIZE = 7;
 
-    public Hotel(String code, String name, String nif, String iban, long priceSingle, long priceDouble, Processor processor) {
-        checkArguments(code, name, nif, iban, priceSingle, priceDouble);
+    public Hotel(InfoStruct info, long priceSingle, long priceDouble, Processor processor) {
+        checkArguments(info.getCode(), info.getName(), info.getNif(), info.getIban(), priceSingle, priceDouble);
 
-        setCode(code);
-        setName(name);
-        setNif(nif);
-        setIban(iban);
+        setCode(info.getCode());
+        setName(info.getName());
+        setNif(info.getNif());
+        setIban(info.getIban());
         setPriceSingle(priceSingle);
         setPriceDouble(priceDouble);
 

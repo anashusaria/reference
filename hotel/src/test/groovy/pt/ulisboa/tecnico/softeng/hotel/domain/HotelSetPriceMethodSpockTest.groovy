@@ -14,7 +14,13 @@ class HotelSetPriceMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     @Override
     def populate4Test() {
-        hotel = new Hotel('XPTO123', 'Lisboa', 'NIF', 'IBAN', PRICE + 5, PRICE + 10, new Processor(new BankInterface(), new TaxInterface()))
+
+        def info = new InfoStruct()
+        info.setCode("XPTO123")
+        info.setName("Lisboa")
+        info.setNif("NIF")
+        info.setIban("IBAN")
+        hotel = new Hotel(info, PRICE + 5, PRICE + 10, new Processor(new BankInterface(), new TaxInterface()))
     }
 
     def 'success single'() {
