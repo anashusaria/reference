@@ -22,7 +22,13 @@ class ActivityPersistenceSpockTest extends SpockPersistenceTestAbstractClass {
     @Override
     def whenCreateInDatabase() {
         def processor = new Processor(new BankInterface(), new TaxInterface())
-        def activityProvider = new ActivityProvider(PROVIDER_CODE, PROVIDER_NAME, NIF, IBAN, processor)
+
+        def info = new InfoStruct()
+        info.setCode(PROVIDER_CODE)
+        info.setName(PROVIDER_NAME)
+        info.setNif(NIF)
+        info.setIban(IBAN)
+        def activityProvider = new ActivityProvider(info, processor)
 
         def activity = new Activity(activityProvider, ACTIVITY_NAME, 18, 65, CAPACITY)
 

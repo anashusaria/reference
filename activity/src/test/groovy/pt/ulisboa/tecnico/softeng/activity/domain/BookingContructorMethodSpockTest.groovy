@@ -18,7 +18,13 @@ class BookingContructorMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Override
     def populate4Test() {
         def processor = new Processor(new BankInterface(), new TaxInterface())
-        provider = new ActivityProvider('XtremX', 'ExtremeAdventure', 'NIF', IBAN, processor)
+
+        def info = new InfoStruct()
+        info.setCode('XtremX')
+        info.setName('ExtremeAdventure')
+        info.setNif('NIF')
+        info.setIban(IBAN)
+        provider = new ActivityProvider(info, processor)
 
         def activity = new Activity(provider, 'Bush Walking', 18, 80, 3)
 

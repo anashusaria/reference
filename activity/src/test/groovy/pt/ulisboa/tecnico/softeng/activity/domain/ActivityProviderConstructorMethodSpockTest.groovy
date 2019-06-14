@@ -19,7 +19,12 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	def 'success'() {
 		when:
 		def processor = new Processor(new BankInterface(), new TaxInterface())
-		def provider = new ActivityProvider(PROVIDER_CODE,PROVIDER_NAME,NIF,IBAN,processor)
+    def info = new InfoStruct()
+    info.setCode(PROVIDER_CODE)
+    info.setName(PROVIDER_NAME)
+    info.setNif(NIF)
+    info.setIban(IBAN)
+		def provider = new ActivityProvider(info, processor)
 
 		then:
 		provider.getName() == PROVIDER_NAME
@@ -31,7 +36,12 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('exceptions: #code, #prov, #nif, #iban')
 	def 'exceptions'() {
 		when:
-		new ActivityProvider(code, prov, nif, iban, new Processor(new BankInterface(), new TaxInterface()))
+    def info = new InfoStruct()
+    info.setCode(code)
+    info.setName(prov)
+    info.setNif(nif)
+    info.setIban(iban)
+		new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
 
 		then:
 		thrown(ActivityException)
@@ -53,10 +63,20 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('uniques: #cd1, #cd2, #n1, #n2, #nif1, #nif2')
 	def 'uniques'() {
 		given: 'an acitivity providr'
-		new ActivityProvider(cd1, n1, nif1, IBAN, new Processor(new BankInterface(), new TaxInterface()))
+    def info1 = new InfoStruct()
+    info1.setCode(cd1)
+    info1.setName(n1)
+    info1.setNif(nif1)
+    info1.setIban(IBAN)
+		new ActivityProvider(info1, new Processor(new BankInterface(), new TaxInterface()))
 
 		when: 'it is created another'
-		new ActivityProvider(cd2, n2, nif2, IBAN, new Processor(new BankInterface(), new TaxInterface()))
+    def info2 = new InfoStruct()
+    info2.setCode(cd2)
+    info2.setName(n2)
+    info2.setNif(nif2)
+    info2.setIban(IBAN)
+		new ActivityProvider(info2, new Processor(new BankInterface(), new TaxInterface()))
 
 		then: 'throws an exception'
 		def error = thrown(ActivityException)

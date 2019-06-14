@@ -21,7 +21,12 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
     @Override
     def populate4Test() {
         def processor = new Processor(new BankInterface(), new TaxInterface())
-        provider = new ActivityProvider('XtremX', 'ExtremeAdventure', 'NIF', 'IBAN', processor)
+        def info = new InfoStruct()
+        info.setCode('XtremX')
+        info.setName('ExtremeAdventure')
+        info.setNif('NIF')
+        info.setIban('IBAN')
+        provider = new ActivityProvider(info, processor)
         activity = new Activity(provider, 'Bush Walking', MIN_AGE, MAX_AGE, CAPACITY)
         offer = new ActivityOffer(activity, begin, end, 30)
     }
@@ -73,8 +78,12 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
 
     def 'empty activity set'() {
         given:
-        def otherProvider = new ActivityProvider('Xtrems', 'Adventure',
-                'NIF2', 'IBAN', new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct()
+        info.setCode('Xterms')
+        info.setName('Adventure')
+        info.setNif('NIF2')
+        info.setIban('IBAN')
+        def otherProvider = new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
 
         when:
         def offers = otherProvider.findOffer(begin, end, AGE)
@@ -85,8 +94,12 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
 
     def 'empty activity offer set'() {
         given:
-        def otherProvider = new ActivityProvider('Xtrems', 'Adventure',
-                'NIF2', 'IBAN', new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct()
+        info.setCode('Xterms')
+        info.setName('Adventure')
+        info.setNif('NIF2')
+        info.setIban('IBAN')
+        def otherProvider = new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
         new Activity(otherProvider, 'Bush Walking', 18, 80, 25)
 
         when:
