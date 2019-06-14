@@ -10,13 +10,13 @@ import java.util.Set;
 public class RentACar extends RentACar_Base {
     public final static int SCALE = 1000;
 
-    public RentACar(final String name, final String nif, final String iban, final Processor processor) {
-        checkArguments(name, nif, iban);
+    public RentACar(final InfoStruct info, final Processor processor) {
+        checkArguments(info.getName(), info.getNif(), info.getIban());
 
-        setCode(nif + getCounter());
-        setName(name);
-        setNif(nif);
-        setIban(iban);
+        setCode(info.getNif() + getCounter());
+        setName(info.getName());
+        setNif(info.getNif());
+        setIban(info.getIban());
         setProcessor(processor);
 
         FenixFramework.getDomainRoot().addRentACar(this);

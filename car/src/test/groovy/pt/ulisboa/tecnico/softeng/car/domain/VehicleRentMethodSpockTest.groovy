@@ -28,7 +28,11 @@ class VehicleRentMethodSpockTest extends SpockRollbackTestAbstractClass {
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN, processor)
+    def info = new InfoStruct()
+    info.setName(RENT_A_CAR_NAME)
+    info.setNif(NIF)
+    info.setIban(IBAN)
+    rentACar = new RentACar(info, processor)
 	}
 
 	def 'double rent'() {

@@ -29,7 +29,11 @@ public class RentACarInterface {
     @Atomic(mode = Atomic.TxMode.WRITE)
     public void createRentACar(final RentACarData rentACarData) {
         final Processor processor = new Processor(new BankInterface(), new TaxInterface());
-        new RentACar(rentACarData.getName(), rentACarData.getNif(), rentACarData.getIban(), processor);
+        InfoStruct info = new InfoStruct();
+        info.setName(rentACarData.getName());
+        info.setNif(rentACarData.getNif());
+        info.setIban(rentACarData.getIban());
+        new RentACar(info, processor);
     }
 
     @Atomic(mode = Atomic.TxMode.READ)

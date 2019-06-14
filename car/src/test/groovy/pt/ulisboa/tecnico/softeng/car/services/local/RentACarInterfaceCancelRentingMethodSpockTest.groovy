@@ -3,10 +3,7 @@ package pt.ulisboa.tecnico.softeng.car.services.local
 import org.joda.time.LocalDate
 import spock.lang.Unroll
 
-import pt.ulisboa.tecnico.softeng.car.domain.Car
-import pt.ulisboa.tecnico.softeng.car.domain.Processor
-import pt.ulisboa.tecnico.softeng.car.domain.RentACar
-import pt.ulisboa.tecnico.softeng.car.domain.SpockRollbackTestAbstractClass
+import pt.ulisboa.tecnico.softeng.car.domain.*
 import pt.ulisboa.tecnico.softeng.car.exception.CarException
 import pt.ulisboa.tecnico.softeng.car.services.remote.BankInterface
 import pt.ulisboa.tecnico.softeng.car.services.remote.TaxInterface
@@ -34,7 +31,11 @@ class RentACarInterfaceCancelRentingMethodSpockTest extends SpockRollbackTestAbs
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN, processor)
+    def info = new InfoStruct()
+    info.setName(RENT_A_CAR_NAME)
+    info.setNif(NIF)
+    info.setIban(IBAN)
+    rentACar = new RentACar(info, processor)
 
 		car = new Car(PLATE_CAR,10,10,rentACar)
 

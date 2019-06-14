@@ -25,7 +25,11 @@ class RentingCheckoutMethodSpockTest extends SpockRollbackTestAbstractClass {
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		def rentACar = new RentACar(NAME1,NIF,IBAN, processor)
+    def info = new InfoStruct()
+    info.setName(NAME1)
+    info.setNif(NIF)
+    info.setIban(IBAN)
+    def rentACar = new RentACar(info, processor)
 		car = new Car(PLATE_CAR1,10,10,rentACar)
 	}
 

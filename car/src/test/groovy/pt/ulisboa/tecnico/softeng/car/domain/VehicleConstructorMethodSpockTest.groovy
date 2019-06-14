@@ -22,7 +22,11 @@ class VehicleConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		rentACar = new RentACar(RENT_A_CAR_NAME, NIF, IBAN, processor)
+    def info = new InfoStruct()
+    info.setName(RENT_A_CAR_NAME)
+    info.setNif(NIF)
+    info.setIban(IBAN)
+    rentACar = new RentACar(info, processor)
 	}
 
 	def 'success'() {
@@ -82,8 +86,11 @@ class VehicleConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 		given: 'create a car in rent-a-car'
 		new Car(PLATE_CAR, 0, 10, rentACar)
 		and: 'another rent a car'
-		def rentACar2 = new RentACar(RENT_A_CAR_NAME + '2', NIF + "1", IBAN,
-				new Processor(new BankInterface(), new TaxInterface()))
+    def info = new InfoStruct()
+    info.setName(RENT_A_CAR_NAME + "2")
+    info.setNif(NIF + "1")
+    info.setIban(IBAN)
+		def rentACar2 = new RentACar(info, new Processor(new BankInterface(), new TaxInterface()))
 
 		when: 'creating a car in the other rent-a-car with the same plate'
 		new Car(PLATE_CAR, 2, 10, rentACar2)
