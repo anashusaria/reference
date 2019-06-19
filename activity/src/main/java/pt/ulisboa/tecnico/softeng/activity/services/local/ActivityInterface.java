@@ -29,11 +29,12 @@ public class ActivityInterface {
     @Atomic(mode = TxMode.WRITE)
     public void createProvider(ActivityProviderData provider) {
         Processor processor = new Processor(new BankInterface(), new TaxInterface());
-        InfoStruct info = new InfoStruct();
-        info.setCode(provider.getCode());
-        info.setName(provider.getName());
-        info.setNif(provider.getNif());
-        info.setIban(provider.getIban());
+        InfoStruct info = new InfoStruct.Builder()
+          .setCode(provider.getCode())
+          .setName(provider.getName())
+          .setNif(provider.getNif())
+          .setIban(provider.getIban())
+          .build();
         new ActivityProvider(info, processor);
     }
 

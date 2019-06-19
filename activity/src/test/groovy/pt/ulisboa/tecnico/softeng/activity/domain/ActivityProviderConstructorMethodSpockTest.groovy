@@ -19,11 +19,12 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	def 'success'() {
 		when:
 		def processor = new Processor(new BankInterface(), new TaxInterface())
-    def info = new InfoStruct()
-    info.setCode(PROVIDER_CODE)
-    info.setName(PROVIDER_NAME)
-    info.setNif(NIF)
-    info.setIban(IBAN)
+    def info = new InfoStruct.Builder()
+      .setCode(PROVIDER_CODE)
+      .setName(PROVIDER_NAME)
+      .setNif(NIF)
+      .setIban(IBAN)
+      .build()
 		def provider = new ActivityProvider(info, processor)
 
 		then:
@@ -36,11 +37,12 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('exceptions: #code, #prov, #nif, #iban')
 	def 'exceptions'() {
 		when:
-    def info = new InfoStruct()
-    info.setCode(code)
-    info.setName(prov)
-    info.setNif(nif)
-    info.setIban(iban)
+    def info = new InfoStruct.Builder()
+      .setCode(code)
+      .setName(prov)
+      .setNif(nif)
+      .setIban(iban)
+      .build()
 		new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
 
 		then:
@@ -63,19 +65,21 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('uniques: #cd1, #cd2, #n1, #n2, #nif1, #nif2')
 	def 'uniques'() {
 		given: 'an acitivity providr'
-    def info1 = new InfoStruct()
-    info1.setCode(cd1)
-    info1.setName(n1)
-    info1.setNif(nif1)
-    info1.setIban(IBAN)
+    def info1 = new InfoStruct.Builder()
+      .setCode(cd1)
+      .setName(n1)
+      .setNif(nif1)
+      .setIban(IBAN)
+      .build()
 		new ActivityProvider(info1, new Processor(new BankInterface(), new TaxInterface()))
 
 		when: 'it is created another'
-    def info2 = new InfoStruct()
-    info2.setCode(cd2)
-    info2.setName(n2)
-    info2.setNif(nif2)
-    info2.setIban(IBAN)
+    def info2 = new InfoStruct.Builder()
+      .setCode(cd2)
+      .setName(n2)
+      .setNif(nif2)
+      .setIban(IBAN)
+      .build()
 		new ActivityProvider(info2, new Processor(new BankInterface(), new TaxInterface()))
 
 		then: 'throws an exception'

@@ -23,11 +23,12 @@ class ActivityInterfaceGetActivityReservationDataMethodSpockTest extends SpockRo
     def populate4Test() {
         def processor = new Processor(new BankInterface(), new TaxInterface())
 
-        def info = new InfoStruct()
-        info.setCode(CODE)
-        info.setName(NAME)
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode(CODE)
+          .setName(NAME)
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         provider = new ActivityProvider(info, processor)
         def activity = new Activity(provider, 'Bush Walking', 18, 80, 3)
         offer = new ActivityOffer(activity, begin, end, 30)

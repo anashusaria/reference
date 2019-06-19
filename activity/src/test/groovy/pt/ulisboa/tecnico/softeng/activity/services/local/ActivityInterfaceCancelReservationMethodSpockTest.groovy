@@ -24,11 +24,12 @@ class ActivityInterfaceCancelReservationMethodSpockTest extends SpockRollbackTes
         taxInterface = Mock(TaxInterface)
         def processor = new Processor(bankInterface, taxInterface)
 
-        def info = new InfoStruct()
-        info.setCode("XtremX")
-        info.setName("ExtremeAdventure")
-        info.setNif("NIF")
-        info.setIban(IBAN)
+        def info = new InfoStruct.Builder()
+          .setCode("XtremX")
+          .setName("ExtremeAdventure")
+          .setNif("NIF")
+          .setIban(IBAN)
+          .build()
         provider = new ActivityProvider(info, processor)
         def activity = new Activity(provider, "Bush Walking", 18, 80, 3)
 

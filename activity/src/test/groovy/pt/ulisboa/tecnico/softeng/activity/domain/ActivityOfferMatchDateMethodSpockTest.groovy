@@ -17,11 +17,12 @@ class ActivityOfferMatchDateMethodSpockTest extends SpockRollbackTestAbstractCla
 	def populate4Test() {
 		def processor = new Processor(new BankInterface(), new TaxInterface())
 
-    def info = new InfoStruct()
-    info.setCode('XtremX')
-    info.setName('ExtremeAdventure')
-    info.setNif('NIF')
-    info.setIban('IBAN')
+    def info = new InfoStruct.Builder()
+      .setCode('XtremX')
+      .setName('ExtremeAdventure')
+      .setNif('NIF')
+      .setIban('IBAN')
+      .build()
     def provider = new ActivityProvider(info, processor)
 		def activity = new Activity(provider,'Bush Walking',18,80,3)
 		offer=new ActivityOffer(activity,begin,end,30)
