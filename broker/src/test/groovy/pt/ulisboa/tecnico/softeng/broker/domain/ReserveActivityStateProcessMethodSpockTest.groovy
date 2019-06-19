@@ -17,8 +17,9 @@ class ReserveActivityStateProcessMethodSpockTest extends SpockRollbackTestAbstra
     def populate4Test() {
         activityInterface = Mock(ActivityInterface)
 
-        def services = new ServiceLayer()
-        services.setActivityInterface(activityInterface)
+        def services = new ServiceLayer.Builder()
+          .setActivityInterface(activityInterface)
+          .build()
 
         broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)

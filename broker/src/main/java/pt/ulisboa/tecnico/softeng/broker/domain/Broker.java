@@ -95,7 +95,7 @@ public class Broker extends Broker_Base {
 
     public ActivityInterface getActivityInterface() {
         if (this.services == null) {
-            this.services = new ServiceLayer();
+            this.services = new ServiceLayer.Builder().build();
         }
 
         return this.services.getActivityInterface();
@@ -103,28 +103,28 @@ public class Broker extends Broker_Base {
 
     public HotelInterface getHotelInterface() {
         if (this.services == null) {
-            this.services = new ServiceLayer();
+            this.services = new ServiceLayer.Builder().build();
         }
         return this.services.getHotelInterface();
     }
 
     CarInterface getCarInterface() {
         if (this.services == null) {
-            this.services = new ServiceLayer();
+            this.services = new ServiceLayer.Builder().build();
         }
         return this.services.getCarInterface();
     }
 
     public BankInterface getBankInterface() {
         if (this.services == null) {
-            this.services = new ServiceLayer();
+            this.services = new ServiceLayer.Builder().build();
         }
         return this.services.getBankInterface();
     }
 
     TaxInterface getTaxInterface() {
         if (this.services == null) {
-            this.services = new ServiceLayer();
+            this.services = new ServiceLayer.Builder().build();
         }
         return this.services.getTaxInterface();
     }

@@ -13,8 +13,9 @@ class BulkRoomBookingProcessBookingMethodSpockTest extends SpockRollbackTestAbst
     def populate4Test() {
         hotelInterface = Mock(HotelInterface)
 
-        def services = new ServiceLayer()
-        services.setHotelInterface(hotelInterface)
+        def services = new ServiceLayer.Builder()
+          .setHotelInterface(hotelInterface)
+          .build()
 
         broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
         bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)

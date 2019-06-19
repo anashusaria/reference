@@ -30,8 +30,15 @@ public class BrokerInterface {
 
     @Atomic(mode = TxMode.WRITE)
     public static void createBroker(BrokerData brokerData) {
+        ServiceLayer services = new ServiceLayer.Builder()
+          .setActivityInterface(new ActivityInterface())
+          .setHotelInterface(new HotelInterface())
+          .setCarInterface(new CarInterface())
+          .setBankInterface(new BankInterface())
+          .setTaxInterface(new TaxInterface())
+          .build();
         new Broker(brokerData.getCode(), brokerData.getName(), brokerData.getNif(),
-                brokerData.getIban(), new ServiceLayer());
+                brokerData.getIban(), services);
     }
 
     @Atomic(mode = TxMode.READ)

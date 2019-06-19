@@ -11,7 +11,7 @@ class ClientConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     @Override
     def populate4Test() {
-        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN, new ServiceLayer())
+        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN, new ServiceLayer.Builder().build())
     }
 
     def 'success'() {
