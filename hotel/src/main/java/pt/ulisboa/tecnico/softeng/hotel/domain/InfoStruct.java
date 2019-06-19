@@ -1,12 +1,54 @@
 package pt.ulisboa.tecnico.softeng.hotel.domain;
 
 public class InfoStruct {
+
+  public static class Builder {
+
+    private String code;
+    private String name;
+    private String nif;
+    private String iban;
+
+    public Builder() {
+
+    }
+
+    public Builder setCode(String arg) {
+      this.code = arg;
+      return this;
+    }
+
+    public Builder setName(String arg) {
+      this.name = arg;
+      return this;
+    }
+
+    public Builder setNif(String arg) {
+      this.nif = arg;
+      return this;
+    }
+
+    public Builder setIban(String arg) {
+      this.iban = arg;
+      return this;
+    }
+
+    public InfoStruct build() {
+      InfoStruct info = new InfoStruct();
+      info.setCode(this.code);
+      info.setName(this.name);
+      info.setNif(this.nif);
+      info.setIban(this.iban);
+      return info;
+    }
+
+  }
   private String code;
   private String name;
   private String nif;
   private String iban;
 
-  public InfoStruct() {
+  private InfoStruct() {
 
   }
 

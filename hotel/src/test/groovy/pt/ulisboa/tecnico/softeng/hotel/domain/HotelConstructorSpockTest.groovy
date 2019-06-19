@@ -27,11 +27,12 @@ class HotelConstructorSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'success'() {
         when: 'an hotel is created'
-        def info = new InfoStruct()
-        info.setCode(HOTEL_CODE)
-        info.setName(HOTEL_NAME)
-        info.setNif(NIF)
-        info.setIban(IBAN)
+        def info = new InfoStruct.Builder()
+          .setCode(HOTEL_CODE)
+          .setName(HOTEL_NAME)
+          .setNif(NIF)
+          .setIban(IBAN)
+          .build()
         def hotel = new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         then: 'all information is correctly set'
@@ -46,11 +47,12 @@ class HotelConstructorSpockTest extends SpockRollbackTestAbstractClass {
     @Unroll('one of the following arguments is not allowed: #code | #name | #nif | #iban | #priceSingle| #priceDouble')
     def 'incorrect input parameters'() {
         when: 'an hotel is created with an incorrect input parameter'
-        def info = new InfoStruct()
-        info.setCode(code)
-        info.setName(name)
-        info.setNif(nif)
-        info.setIban(iban)
+        def info = new InfoStruct.Builder()
+          .setCode(code)
+          .setName(name)
+          .setNif(nif)
+          .setIban(iban)
+          .build()
         new Hotel(info, priceSingle, priceDouble, new Processor(new BankInterface(), new TaxInterface()))
 
         then: 'an HotelException is thrown'
@@ -72,18 +74,21 @@ class HotelConstructorSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'code not unique'() {
         given: 'an hotel'
-        def info = new InfoStruct()
-        info.setCode(HOTEL_CODE)
-        info.setName(HOTEL_NAME)
-        info.setNif(NIF)
-        info.setIban(IBAN)
+        def info = new InfoStruct.Builder()
+          .setCode(HOTEL_CODE)
+          .setName(HOTEL_NAME)
+          .setNif(NIF)
+          .setIban(IBAN)
+          .build()
         new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         when: 'another hotel is created with the same code'
-        info.setCode(HOTEL_CODE)
-        info.setName(HOTEL_NAME + " City")
-        info.setNif(NIF + "1")
-        info.setIban(IBAN)
+        info = new InfoStruct.Builder()
+          .setCode(HOTEL_CODE)
+          .setName(HOTEL_NAME + " City")
+          .setNif(NIF + "1")
+          .setIban(IBAN)
+          .build()
         new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         then: 'an HotelException is thrown'
@@ -93,18 +98,21 @@ class HotelConstructorSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'nif not unique'() {
         given: 'an hotel'
-        def info = new InfoStruct()
-        info.setCode(HOTEL_CODE)
-        info.setName(HOTEL_NAME)
-        info.setNif(NIF)
-        info.setIban(IBAN)
+        def info = new InfoStruct.Builder()
+          .setCode(HOTEL_CODE)
+          .setName(HOTEL_NAME)
+          .setNif(NIF)
+          .setIban(IBAN)
+          .build()
         new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         when: 'another hotel is created with the same nif'
-        info.setCode("XPTO124")
-        info.setName(HOTEL_NAME + "_New")
-        info.setNif(NIF)
-        info.setIban(IBAN)
+        info = new InfoStruct.Builder()
+          .setCode("XPTO124")
+          .setName(HOTEL_NAME + "_New")
+          .setNif(NIF)
+          .setIban(IBAN)
+          .build()
         new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         then: 'an HotelException is thrown'

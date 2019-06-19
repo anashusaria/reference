@@ -15,11 +15,12 @@ class HotelGetPriceMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'price single'() {
         given: 'a hotel'
-        def info = new InfoStruct()
-        info.setCode("XPTO123")
-        info.setName("Lisboa")
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Lisboa")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         hotel = new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         expect:
@@ -28,11 +29,12 @@ class HotelGetPriceMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'price double'() {
         given: 'a hotel'
-        def info = new InfoStruct()
-        info.setCode("XPTO123")
-        info.setName("Lisboa")
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Lisboa")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         hotel = new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         expect:
@@ -41,11 +43,12 @@ class HotelGetPriceMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     def 'incorrect input'() {
         given: 'a hotel'
-        def info = new InfoStruct()
-        info.setCode("XPTO123")
-        info.setName("Lisboa")
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Lisboa")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         hotel = new Hotel(info, PRICE_SINGLE, PRICE_DOUBLE, new Processor(new BankInterface(), new TaxInterface()))
 
         when:

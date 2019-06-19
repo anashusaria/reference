@@ -35,11 +35,12 @@ class HotelInterfaceBulkBookingMethodSpockTest extends SpockRollbackTestAbstract
     def populate4Test() {
         bankInterfaceOne = Mock(BankInterface)
         taxInterfaceOne = Mock(TaxInterface)
-        def info = new InfoStruct()
-        info.setCode("XPTO123")
-        info.setName("Paris")
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Paris")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         hotel = new Hotel(info, 20, 30, new Processor(bankInterfaceOne, taxInterfaceOne))
         new Room(hotel, '01', Type.DOUBLE)
         new Room(hotel, '02', Type.SINGLE)
@@ -98,11 +99,12 @@ class HotelInterfaceBulkBookingMethodSpockTest extends SpockRollbackTestAbstract
             hotel.delete()
         }
 
-        def info = new InfoStruct()
-        info.setCode("XPTO124")
-        info.setName("Paris")
-        info.setNif("NIF")
-        info.setIban("IBAN")
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO124")
+          .setName("Paris")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
         hotel = new Hotel(info, 27, 37, new Processor(Mock(BankInterface), Mock(TaxInterface)))
 
         when: 'doing a bulkbooking'

@@ -29,11 +29,12 @@ public class HotelInterface {
 
     @Atomic(mode = TxMode.WRITE)
     public static void createHotel(HotelData hotelData) {
-        InfoStruct info = new InfoStruct();
-        info.setCode(hotelData.getCode());
-        info.setName(hotelData.getName());
-        info.setNif(hotelData.getNif());
-        info.setIban(hotelData.getIban());
+        InfoStruct info = new InfoStruct.Builder()
+          .setCode(hotelData.getCode())
+          .setName(hotelData.getName())
+          .setNif(hotelData.getNif())
+          .setIban(hotelData.getIban())
+          .build();
         new Hotel(info, hotelData.getPriceSingleLong(), hotelData.getPriceDoubleLong(),
             new Processor(new BankInterface(), new TaxInterface()));
     }
