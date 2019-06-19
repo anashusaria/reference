@@ -13,11 +13,18 @@ class BulkRoomBookingProcessBookingMethodSpockTest extends SpockRollbackTestAbst
     def populate4Test() {
         hotelInterface = Mock(HotelInterface)
 
+        def info = new InfoStruct.Builder()
+          .setCode("BR01")
+          .setName("eXtremeADVENTURE")
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
         def services = new ServiceLayer.Builder()
           .setHotelInterface(hotelInterface)
           .build()
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
+        broker = new Broker(info, services)
         bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)
     }
 
