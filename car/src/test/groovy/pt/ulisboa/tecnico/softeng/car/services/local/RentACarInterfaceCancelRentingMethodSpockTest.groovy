@@ -31,10 +31,7 @@ class RentACarInterfaceCancelRentingMethodSpockTest extends SpockRollbackTestAbs
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-    def info = new InfoStruct()
-    info.setName(RENT_A_CAR_NAME)
-    info.setNif(NIF)
-    info.setIban(IBAN)
+    def info = new InfoStruct.Builder().setName(RENT_A_CAR_NAME).setNif(NIF).setIban(IBAN).build()
     rentACar = new RentACar(info, processor)
 
 		car = new Car(PLATE_CAR,10,10,rentACar)

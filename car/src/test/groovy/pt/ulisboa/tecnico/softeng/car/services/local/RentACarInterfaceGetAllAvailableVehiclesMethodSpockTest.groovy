@@ -33,10 +33,7 @@ class RentACarInterfaceGetAllAvailableVehiclesMethodSpockTest extends SpockRollb
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-    def info = new InfoStruct()
-    info.setName(NAME1)
-    info.setNif(NIF)
-    info.setIban(IBAN)
+    def info = new InfoStruct.Builder().setName(NAME1).setNif(NIF).setIban(IBAN).build()
     rentACar1 = new RentACar(info, processor)
 
 		bankInterface = new BankInterface()

@@ -24,10 +24,7 @@ class RentACarConstructorSpockTest extends SpockRollbackTestAbstractClass {
 
 	def 'success'() {
 		when: 'creating a new RentACar'
-    def info = new InfoStruct()
-    info.setName(NAME)
-    info.setNif(NIF)
-    info.setIban(IBAN)
+    def info = new InfoStruct.Builder().setName(NAME).setNif(NIF).setIban(IBAN).build()
     def rentACar = new RentACar(info, processor)
 
 		then: 'should succeed'
@@ -38,10 +35,7 @@ class RentACarConstructorSpockTest extends SpockRollbackTestAbstractClass {
 	@Unroll('RentACar: #name')
 	def 'exceptions'() {
 		when: 'creating a RentACar with invalid arguments'
-    def info = new InfoStruct()
-    info.setName(name)
-    info.setNif(nif)
-    info.setIban(iban)
+    def info = new InfoStruct.Builder().setName(name).setNif(nif).setIban(iban).build()
     new RentACar(info, processor)
 		new RentACar(name, nif, iban, processor)
 
