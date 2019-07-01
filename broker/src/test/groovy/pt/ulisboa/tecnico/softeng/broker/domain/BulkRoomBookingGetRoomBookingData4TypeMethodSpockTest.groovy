@@ -18,7 +18,16 @@ class BulkRoomBookingGetRoomBookingData4TypeMethodSpockTest extends SpockRollbac
           .setHotelInterface(hotelInterface)
           .build()
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
+
+        def info = new InfoStruct.Builder()
+          .setCode("BR01")
+          .setName("eXtremeADVENTURE")
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
+        broker = new Broker(info, services)
+
         bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)
         new Reference(bulk, REF_ONE)
         new Reference(bulk, REF_TWO)

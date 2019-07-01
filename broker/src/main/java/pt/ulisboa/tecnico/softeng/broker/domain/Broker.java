@@ -11,13 +11,13 @@ import java.util.Objects;
 public class Broker extends Broker_Base {
     private ServiceLayer services;
 
-    public Broker(String code, String name, String nif, String iban, ServiceLayer services) {
-        checkArguments(code, name, nif, iban);
+    public Broker(InfoStruct info, ServiceLayer services) {
+        checkArguments(info.getCode(), info.getName(), info.getNif(), info.getIban());
 
-        setCode(code);
-        setName(name);
-        setNif(nif);
-        setIban(iban);
+        setCode(info.getCode());
+        setName(info.getName());
+        setNif(info.getNif());
+        setIban(info.getIban());
 
         this.services = services;
 

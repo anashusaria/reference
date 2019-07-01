@@ -29,6 +29,14 @@ class AdventureSequenceSpockTest extends SpockRollbackTestAbstractClass {
         hotelInterface = Mock(HotelInterface)
         carInterface = Mock(CarInterface)
 
+
+        def info = new InfoStruct.Builder()
+          .setCode("BR01")
+          .setName("eXtremeADVENTURE")
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
         def services = new ServiceLayer.Builder()
           .setTaxInterface(taxInterface)
           .setBankInterface(bankInterface)
@@ -37,7 +45,9 @@ class AdventureSequenceSpockTest extends SpockRollbackTestAbstractClass {
           .setCarInterface(carInterface)
           .build()
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
+
+        broker = new Broker(info, services)
+
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
 
         bookingActivityData = new RestActivityBookingData()

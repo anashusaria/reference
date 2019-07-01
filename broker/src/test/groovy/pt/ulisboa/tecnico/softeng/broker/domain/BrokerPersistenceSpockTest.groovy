@@ -7,7 +7,17 @@ class BrokerPersistenceSpockTest extends SpockPersistenceTestAbstractClass imple
 
     @Override
     def whenCreateInDatabase() {
-        def broker = new Broker(BROKER_CODE, BROKER_NAME, BROKER_NIF, BROKER_IBAN, new ServiceLayer.Builder().build())
+
+
+        def info = new InfoStruct.Builder()
+          .setCode(BROKER_CODE)
+          .setName(BROKER_NAME)
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
+        def broker = new Broker(info, new ServiceLayer.Builder().build())
+
         def client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         new Adventure(broker, this.BEGIN, this.END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

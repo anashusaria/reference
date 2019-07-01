@@ -24,6 +24,15 @@ class CancelledStateProcessMethodSpockTest extends SpockRollbackTestAbstractClas
         hotelInterface = Mock(HotelInterface)
         carInterface = Mock(CarInterface)
 
+
+        def info = new InfoStruct.Builder()
+          .setCode("BR01")
+          .setName("eXtremeADVENTURE")
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
+
         def services = new ServiceLayer.Builder()
           .setActivityInterface(activityInterface)
           .setBankInterface(bankInterface)
@@ -31,7 +40,8 @@ class CancelledStateProcessMethodSpockTest extends SpockRollbackTestAbstractClas
           .setCarInterface(carInterface)
           .build()
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
+
+        broker = new Broker(info, services)
 
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
 

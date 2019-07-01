@@ -16,11 +16,21 @@ class ProcessPaymentStateProcessMethodSpockTest extends SpockRollbackTestAbstrac
     def populate4Test() {
         bankInterface = Mock(BankInterface)
 
+        def info = new InfoStruct.Builder()
+          .setCode("BR01")
+          .setName("eXtremeADVENTURE")
+          .setNif(BROKER_NIF)
+          .setIban(BROKER_IBAN)
+          .build()
+
+
         def services = new ServiceLayer.Builder()
           .setBankInterface(bankInterface)
           .build()
 
-        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN, services)
+
+        broker = new Broker(info, services)
+
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 
