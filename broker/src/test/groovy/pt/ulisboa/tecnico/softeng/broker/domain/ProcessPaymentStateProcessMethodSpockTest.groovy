@@ -23,11 +23,14 @@ class ProcessPaymentStateProcessMethodSpockTest extends SpockRollbackTestAbstrac
           .setIban(BROKER_IBAN)
           .build()
 
+
         def services = new ServiceLayer.Builder()
           .setBankInterface(bankInterface)
           .build()
 
+
         broker = new Broker(info, services)
+
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

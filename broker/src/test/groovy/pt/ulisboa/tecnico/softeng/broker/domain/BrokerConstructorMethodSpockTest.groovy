@@ -13,6 +13,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     def success() {
         when: 'a broker is created'
+
         def info = new InfoStruct.Builder()
           .setCode(BROKER_CODE)
           .setName(BROKER_NAME)
@@ -20,6 +21,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
           .setIban(BROKER_IBAN)
           .build()
         def broker = new Broker(info, new ServiceLayer.Builder().build())
+
 
         then: 'the attributes are correctly set'
         broker.getCode().equals(BROKER_CODE)
@@ -31,6 +33,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Unroll('#label: #broker, #name, #nif_seller, #nif_buyer, #iban')
     def 'invalid arguments'() {
         when: 'a broker is created'
+
         def info = new InfoStruct.Builder()
           .setCode(broker)
           .setName(name)
@@ -39,6 +42,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
           .build()
 
         new Broker(info, new ServiceLayer.Builder().build())
+
 
         then: 'an exception is thrown'
         thrown(BrokerException)
@@ -63,6 +67,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Unroll('duplicate #label')
     def 'unique verifications'() {
         given: 'a broker'
+
         def info = new InfoStruct.Builder()
           .setCode(code_one)
           .setName(BROKER_NAME)
@@ -76,6 +81,7 @@ class BrokerConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
         info.setCode(code_two)
         info.setNif(nif_two)
         new Broker(info, new ServiceLayer.Builder().build())
+
 
         then: 'an exception is thrown'
         thrown(BrokerException)

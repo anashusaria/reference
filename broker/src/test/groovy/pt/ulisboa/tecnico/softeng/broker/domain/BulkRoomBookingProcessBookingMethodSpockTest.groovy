@@ -20,11 +20,14 @@ class BulkRoomBookingProcessBookingMethodSpockTest extends SpockRollbackTestAbst
           .setIban(BROKER_IBAN)
           .build()
 
+
         def services = new ServiceLayer.Builder()
           .setHotelInterface(hotelInterface)
           .build()
 
+
         broker = new Broker(info, services)
+
         bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)
     }
 

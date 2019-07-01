@@ -21,7 +21,13 @@ class HotelPersistenceSpockTest extends SpockPersistenceTestAbstractClass {
 
     @Override
     def whenCreateInDatabase() {
-        def hotel = new Hotel(HOTEL_CODE, HOTEL_NAME, HOTEL_NIF, HOTEL_IBAN, 10, 20, new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct.Builder()
+          .setCode(HOTEL_CODE)
+          .setName(HOTEL_NAME)
+          .setNif(HOTEL_NIF)
+          .setIban(HOTEL_IBAN)
+          .build()
+        def hotel = new Hotel(info, 10, 20, new Processor(new BankInterface(), new TaxInterface()))
         new Room(hotel, ROOM_NUMBER, Type.DOUBLE)
         hotel.reserveRoom(Type.DOUBLE, arrival, departure, CLIENT_NIF, CLIENT_IBAN, ADVENTURE_ID)
     }

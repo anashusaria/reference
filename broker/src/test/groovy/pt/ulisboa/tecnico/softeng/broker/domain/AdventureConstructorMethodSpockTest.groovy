@@ -12,6 +12,7 @@ class AdventureConstructorMethodSpockTest extends SpockRollbackTestAbstractClass
 
     @Override
     def populate4Test() {
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -19,6 +20,7 @@ class AdventureConstructorMethodSpockTest extends SpockRollbackTestAbstractClass
           .setIban(BROKER_IBAN)
           .build()
         broker = new Broker(info, new ServiceLayer.Builder().build())
+
     }
 
     @Unroll('success #label: #begin, #end, #age, #margin')

@@ -21,7 +21,13 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
     @Override
     def populate4Test() {
         def processor = new Processor(new BankInterface(), new TaxInterface())
-        provider = new ActivityProvider('XtremX', 'ExtremeAdventure', 'NIF', 'IBAN', processor)
+        def info = new InfoStruct.Builder()
+          .setCode('XtremX')
+          .setName('ExtremeAdventure')
+          .setNif('NIF')
+          .setIban('IBAN')
+          .build()
+        provider = new ActivityProvider(info, processor)
         activity = new Activity(provider, 'Bush Walking', MIN_AGE, MAX_AGE, CAPACITY)
         offer = new ActivityOffer(activity, begin, end, 30)
     }
@@ -73,8 +79,13 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
 
     def 'empty activity set'() {
         given:
-        def otherProvider = new ActivityProvider('Xtrems', 'Adventure',
-                'NIF2', 'IBAN', new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct.Builder()
+          .setCode('Xterms')
+          .setName('Adventure')
+          .setNif('NIF2')
+          .setIban('IBAN')
+          .build()
+        def otherProvider = new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
 
         when:
         def offers = otherProvider.findOffer(begin, end, AGE)
@@ -85,8 +96,13 @@ class ActivityProviderFindOfferMethodSpockTest extends SpockRollbackTestAbstract
 
     def 'empty activity offer set'() {
         given:
-        def otherProvider = new ActivityProvider('Xtrems', 'Adventure',
-                'NIF2', 'IBAN', new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct.Builder()
+          .setCode('Xterms')
+          .setName('Adventure')
+          .setNif('NIF2')
+          .setIban('IBAN')
+          .build()
+        def otherProvider = new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
         new Activity(otherProvider, 'Bush Walking', 18, 80, 25)
 
         when:

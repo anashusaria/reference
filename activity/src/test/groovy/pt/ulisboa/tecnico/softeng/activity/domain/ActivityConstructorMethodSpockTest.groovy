@@ -18,7 +18,13 @@ class ActivityConstructorMethodSpockTest extends SpockRollbackTestAbstractClass 
 	@Override
 	def populate4Test() {
 		def processor = new Processor(new BankInterface(), new TaxInterface())
-		provider = new ActivityProvider('XtremX','ExtremeAdventure',NIF,IBAN,processor)
+    def info = new InfoStruct.Builder()
+      .setCode('XtremX')
+      .setName('ExtremeAdventure')
+      .setNif(NIF)
+      .setIban(IBAN)
+      .build()
+    provider = new ActivityProvider(info, processor)
 	}
 
 	@Unroll('success: #prov, #name, #min, #max, #cap')

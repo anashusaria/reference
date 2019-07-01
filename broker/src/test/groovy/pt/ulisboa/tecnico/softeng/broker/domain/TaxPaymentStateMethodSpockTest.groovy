@@ -15,6 +15,7 @@ class TaxPaymentStateMethodSpockTest extends SpockRollbackTestAbstractClass {
     def populate4Test() {
         taxInterface = Mock(TaxInterface)
 
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -27,6 +28,7 @@ class TaxPaymentStateMethodSpockTest extends SpockRollbackTestAbstractClass {
           .build()
 
         broker = new Broker(info, services)
+
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

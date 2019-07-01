@@ -11,6 +11,7 @@ class ClientConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
 
     @Override
     def populate4Test() {
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -19,6 +20,7 @@ class ClientConstructorMethodSpockTest extends SpockRollbackTestAbstractClass {
           .build()
 
         broker = new Broker(info, new ServiceLayer.Builder().build())
+
     }
 
     def 'success'() {

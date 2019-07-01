@@ -25,7 +25,8 @@ class CarPersistenceSpockTest extends SpockPersistenceTestAbstractClass {
         def taxInterface = new TaxInterface()
         def processor = new Processor(bankInterface, taxInterface)
 
-        def rentACar = new RentACar(NAME1, NIF, IBAN, processor)
+        def info = new InfoStruct.Builder().setName(NAME1).setNif(NIF).setIban(IBAN).build()
+        def rentACar = new RentACar(info, processor)
         def car = new Car(PLATE_CAR1, 10, 10, rentACar)
         def motorcycle = new Motorcycle(PLATE_CAR2, 20, 5, rentACar)
         car.rent(DRIVING_LICENSE, date1, date2, NIF, IBAN_BUYER, ADVENTURE_ID)

@@ -16,6 +16,7 @@ class BrokerGetRoomBookingFromBulkBookingsSpockTest extends SpockRollbackTestAbs
     def populate4Test() {
         hotelInterface = Mock(HotelInterface)
 
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -23,11 +24,13 @@ class BrokerGetRoomBookingFromBulkBookingsSpockTest extends SpockRollbackTestAbs
           .setIban(BROKER_IBAN)
           .build()
 
+
         def services = new ServiceLayer.Builder()
           .setHotelInterface(hotelInterface)
           .build()
 
         broker = new Broker(info, services)
+
         bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)
         new Reference(bulk, REF_ONE)
         new Reference(bulk, REF_TWO)
@@ -42,7 +45,7 @@ class BrokerGetRoomBookingFromBulkBookingsSpockTest extends SpockRollbackTestAbs
         given: 'that the hotel interface returns a booking data for a single room'
         hotelInterface.getRoomBookingData(_) >> bookingData
 
-        when: 'it is requested a SINGLE room from the set of bulked booked rooms'
+        when: 'it is requested a SINGLE room from the set of bulked booked rooms
         bookingData = broker.getRoomBookingFromBulkBookings(SINGLE, BEGIN, END)
 
         then: 'a the booking of a single room is returned'

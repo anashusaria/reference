@@ -2,11 +2,7 @@ package pt.ulisboa.tecnico.softeng.car.services.local
 
 import org.joda.time.LocalDate
 
-import pt.ulisboa.tecnico.softeng.car.domain.Car
-import pt.ulisboa.tecnico.softeng.car.domain.Motorcycle
-import pt.ulisboa.tecnico.softeng.car.domain.Processor
-import pt.ulisboa.tecnico.softeng.car.domain.RentACar
-import pt.ulisboa.tecnico.softeng.car.domain.SpockRollbackTestAbstractClass
+import pt.ulisboa.tecnico.softeng.car.domain.*
 import pt.ulisboa.tecnico.softeng.car.services.remote.BankInterface
 import pt.ulisboa.tecnico.softeng.car.services.remote.TaxInterface
 
@@ -37,13 +33,16 @@ class RentACarInterfaceGetAllAvailableVehiclesMethodSpockTest extends SpockRollb
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		rentACar1 = new RentACar(NAME1,NIF,IBAN, processor)
+    def info = new InfoStruct.Builder().setName(NAME1).setNif(NIF).setIban(IBAN).build()
+    rentACar1 = new RentACar(info, processor)
 
 		bankInterface = new BankInterface()
 		taxInterface = new TaxInterface()
 		processor = new Processor(bankInterface, taxInterface)
 
-		rentACar2 = new RentACar(NAME2,NIF + '1',IBAN, processor)
+    info.setName(NAME2)
+    info.setNif(NIF + "1")
+		rentACar2 = new RentACar(info, processor)
 	}
 
 	def 'only cars'() {

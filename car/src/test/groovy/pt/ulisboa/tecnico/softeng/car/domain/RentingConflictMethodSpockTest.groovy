@@ -29,7 +29,8 @@ class RentingConflictMethodSpockTest extends SpockRollbackTestAbstractClass {
 		def taxInterface = new TaxInterface()
 		def processor = new Processor(bankInterface, taxInterface)
 
-		def rentACar = new RentACar(RENT_A_CAR_NAME,NIF,IBAN, processor)
+    def info = new InfoStruct.Builder().setName(RENT_A_CAR_NAME).setNif(NIF).setIban(IBAN).build()
+    def rentACar = new RentACar(info, processor)
 		car = new Car(PLATE_CAR,10,10,rentACar)
 	}
 

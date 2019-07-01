@@ -1,11 +1,7 @@
 package pt.ulisboa.tecnico.softeng.activity.services.local
 
 import org.joda.time.LocalDate
-import pt.ulisboa.tecnico.softeng.activity.domain.Activity
-import pt.ulisboa.tecnico.softeng.activity.domain.ActivityOffer
-import pt.ulisboa.tecnico.softeng.activity.domain.ActivityProvider
-import pt.ulisboa.tecnico.softeng.activity.domain.Processor
-import pt.ulisboa.tecnico.softeng.activity.domain.SpockRollbackTestAbstractClass
+import pt.ulisboa.tecnico.softeng.activity.domain.*
 import pt.ulisboa.tecnico.softeng.activity.exception.ActivityException
 import pt.ulisboa.tecnico.softeng.activity.services.remote.BankInterface
 import pt.ulisboa.tecnico.softeng.activity.services.remote.TaxInterface
@@ -35,8 +31,17 @@ class ActivityInterfaceReserveActivityMethodSpockTest extends SpockRollbackTestA
         def processor = new Processor(bankInterface, taxInterface)
         def processor1 = new Processor(bankInterface, taxInterface)
 
-        provider1 = new ActivityProvider("XtremX", "Adventure++", "NIF", IBAN, processor)
-        provider2 = new ActivityProvider("Walker", "Sky", "NIF2", IBAN, processor1)
+        def info = new InfoStruct.Builder()
+          .setCode("XtremX")
+          .setName("Adventure++")
+          .setNif("NIF")
+          .setIban(IBAN)
+          .build()
+        provider1 = new ActivityProvider(info, processor)
+        info.setCode("Walker")
+        info.setName("Sky")
+        info.setNif("NIF2")
+        provider2 = new ActivityProvider(info, processor1)
         activityInterface = new ActivityInterface()
 
         activityBookingData = new RestActivityBookingData()

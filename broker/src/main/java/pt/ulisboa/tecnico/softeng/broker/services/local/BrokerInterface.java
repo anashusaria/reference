@@ -9,6 +9,7 @@ import pt.ulisboa.tecnico.softeng.broker.domain.BulkRoomBooking;
 import pt.ulisboa.tecnico.softeng.broker.domain.Client;
 import pt.ulisboa.tecnico.softeng.broker.domain.ServiceLayer;
 import pt.ulisboa.tecnico.softeng.broker.domain.InfoStruct;
+
 import pt.ulisboa.tecnico.softeng.broker.exception.BrokerException;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.*;
 import pt.ulisboa.tecnico.softeng.broker.services.local.dataobjects.BrokerData.CopyDepth;
@@ -37,6 +38,7 @@ public class BrokerInterface {
           .setNif(brokerData.getNif())
           .setIban(brokerData.getIban())
           .build();
+
         ServiceLayer services = new ServiceLayer.Builder()
           .setActivityInterface(new ActivityInterface())
           .setHotelInterface(new HotelInterface())
@@ -44,7 +46,9 @@ public class BrokerInterface {
           .setBankInterface(new BankInterface())
           .setTaxInterface(new TaxInterface())
           .build();
+
         new Broker(info, services);
+
     }
 
     @Atomic(mode = TxMode.READ)

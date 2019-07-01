@@ -21,6 +21,7 @@ class UndoStateProcessMethodSpockTest extends SpockRollbackTestAbstractClass {
         bankInterface = Mock(BankInterface)
         taxInterface = Mock(TaxInterface)
 
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -37,6 +38,7 @@ class UndoStateProcessMethodSpockTest extends SpockRollbackTestAbstractClass {
           .build()
 
         broker = new Broker(info, services)
+
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 

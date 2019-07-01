@@ -17,6 +17,7 @@ class BookRoomStateMethodSpockTest extends SpockRollbackTestAbstractClass {
     def populate4Test() {
         hotelInterface = Mock(HotelInterface)
 
+
         def info = new InfoStruct.Builder()
           .setCode("BR01")
           .setName("eXtremeADVENTURE")
@@ -27,6 +28,7 @@ class BookRoomStateMethodSpockTest extends SpockRollbackTestAbstractClass {
         def services = new ServiceLayer.Builder().setHotelInterface(hotelInterface).build()
 
         broker = new Broker(info, services)
+
         def bulk = new BulkRoomBooking(broker, NUMBER_OF_BULK, BEGIN, END)
         new Reference(bulk, REF_ONE)
         new Reference(bulk, REF_TWO)
