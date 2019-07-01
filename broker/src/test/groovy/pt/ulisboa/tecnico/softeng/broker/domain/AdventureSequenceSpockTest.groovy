@@ -29,8 +29,15 @@ class AdventureSequenceSpockTest extends SpockRollbackTestAbstractClass {
         hotelInterface = Mock(HotelInterface)
         carInterface = Mock(CarInterface)
 
-        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN,
-                activityInterface, hotelInterface, carInterface, bankInterface, taxInterface)
+        def services = new ServiceLayer.Builder()
+          .setTaxInterface(taxInterface)
+          .setBankInterface(bankInterface)
+          .setActivityInterface(activityInterface)
+          .setHotelInterface(hotelInterface)
+          .setCarInterface(carInterface)
+          .build()
+
+        broker = new Broker("BR01", "eXtremeADVENTURE", BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
 
         bookingActivityData = new RestActivityBookingData()

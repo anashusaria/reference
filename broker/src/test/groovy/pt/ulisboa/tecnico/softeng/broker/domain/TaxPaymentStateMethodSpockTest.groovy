@@ -14,8 +14,12 @@ class TaxPaymentStateMethodSpockTest extends SpockRollbackTestAbstractClass {
     @Override
     def populate4Test() {
         taxInterface = Mock(TaxInterface)
-        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN,
-                new ActivityInterface(), new HotelInterface(), new CarInterface(), new BankInterface(), taxInterface)
+
+        def services = new ServiceLayer.Builder()
+          .setTaxInterface(taxInterface)
+          .build()
+
+        broker = new Broker('BR01', 'eXtremeADVENTURE', BROKER_NIF, BROKER_IBAN, services)
         client = new Client(broker, CLIENT_IBAN, CLIENT_NIF, DRIVING_LICENSE, AGE)
         adventure = new Adventure(broker, BEGIN, END, client, MARGIN, Adventure.BookRoom.DOUBLE, Adventure.RentVehicle.CAR)
 
