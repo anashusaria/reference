@@ -2,9 +2,7 @@ package pt.ulisboa.tecnico.softeng.hotel.services.local
 
 import org.joda.time.LocalDate
 import pt.ist.fenixframework.FenixFramework
-import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel
-import pt.ulisboa.tecnico.softeng.hotel.domain.Processor
-import pt.ulisboa.tecnico.softeng.hotel.domain.Room
+import pt.ulisboa.tecnico.softeng.hotel.domain.*
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type
 import pt.ulisboa.tecnico.softeng.hotel.domain.SpockRollbackTestAbstractClass
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException
@@ -37,7 +35,13 @@ class HotelInterfaceBulkBookingMethodSpockTest extends SpockRollbackTestAbstract
     def populate4Test() {
         bankInterfaceOne = Mock(BankInterface)
         taxInterfaceOne = Mock(TaxInterface)
-        hotel = new Hotel('XPTO123', 'Paris', 'NIF', 'IBAN', 20, 30, new Processor(bankInterfaceOne, taxInterfaceOne))
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Paris")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
+        hotel = new Hotel(info, 20, 30, new Processor(bankInterfaceOne, taxInterfaceOne))
         new Room(hotel, '01', Type.DOUBLE)
         new Room(hotel, '02', Type.SINGLE)
         new Room(hotel, '03', Type.DOUBLE)
@@ -45,7 +49,11 @@ class HotelInterfaceBulkBookingMethodSpockTest extends SpockRollbackTestAbstract
 
         bankInterfaceTwo = Mock(BankInterface)
         taxInterfaceTwo = Mock(TaxInterface)
-        hotel = new Hotel('XPTO124', 'Paris', 'NIF2', 'IBAN2', 25, 35, new Processor(bankInterfaceTwo, taxInterfaceTwo))
+        info.setCode("XPTO124")
+        info.setName("Paris")
+        info.setNif("NIF2")
+        info.setIban("IBAN2")
+        hotel = new Hotel(info, 25, 35, new Processor(bankInterfaceTwo, taxInterfaceTwo))
         new Room(hotel, '01', Type.DOUBLE)
         new Room(hotel, '02', Type.SINGLE)
         new Room(hotel, '03', Type.DOUBLE)
@@ -90,7 +98,14 @@ class HotelInterfaceBulkBookingMethodSpockTest extends SpockRollbackTestAbstract
         for (def hotel : FenixFramework.getDomainRoot().getHotelSet()) {
             hotel.delete()
         }
-        hotel = new Hotel('XPTO124', 'Paris', 'NIF', 'IBAN', 27, 37, new Processor(Mock(BankInterface), Mock(TaxInterface)))
+
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO124")
+          .setName("Paris")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
+        hotel = new Hotel(info, 27, 37, new Processor(Mock(BankInterface), Mock(TaxInterface)))
 
         when: 'doing a bulkbooking'
         HotelInterface.bulkBooking(3, ARRIVAL, DEPARTURE, NIF_BUYER, IBAN_BUYER, BULK_ID)

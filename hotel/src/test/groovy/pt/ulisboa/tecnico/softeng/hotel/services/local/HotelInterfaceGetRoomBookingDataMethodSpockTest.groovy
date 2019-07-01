@@ -1,11 +1,8 @@
 package pt.ulisboa.tecnico.softeng.hotel.services.local
 
 import org.joda.time.LocalDate
-import pt.ulisboa.tecnico.softeng.hotel.domain.Hotel
-import pt.ulisboa.tecnico.softeng.hotel.domain.Processor
-import pt.ulisboa.tecnico.softeng.hotel.domain.Room
+import pt.ulisboa.tecnico.softeng.hotel.domain.*
 import pt.ulisboa.tecnico.softeng.hotel.domain.Room.Type
-import pt.ulisboa.tecnico.softeng.hotel.domain.SpockRollbackTestAbstractClass
 import pt.ulisboa.tecnico.softeng.hotel.exception.HotelException
 import pt.ulisboa.tecnico.softeng.hotel.services.remote.BankInterface
 import pt.ulisboa.tecnico.softeng.hotel.services.remote.TaxInterface
@@ -24,7 +21,13 @@ class HotelInterfaceGetRoomBookingDataMethodSpockTest extends SpockRollbackTestA
 
     @Override
     def populate4Test() {
-        hotel = new Hotel('XPTO123', 'Lisboa', NIF_HOTEL, 'IBAN', 20000, 30000, new Processor(new BankInterface(), new TaxInterface()))
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Lisboa")
+          .setNif(NIF_HOTEL)
+          .setIban("IBAN")
+          .build()
+        hotel = new Hotel(info, 20000, 30000, new Processor(new BankInterface(), new TaxInterface()))
         room = new Room(hotel, '01', Type.SINGLE)
         booking = room.reserve(Type.SINGLE, ARRIVAL, DEPARTURE, NIF_BUYER, IBAN_BUYER)
     }

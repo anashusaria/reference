@@ -22,7 +22,14 @@ class BookingConstructorSpockTest extends SpockRollbackTestAbstractClass {
 
     @Override
     def populate4Test() {
-        def hotel = new Hotel('XPTO123', 'Londres', 'NIF', 'IBAN', 20, 30, new Processor(new BankInterface(), new TaxInterface()))
+
+        def info = new InfoStruct.Builder()
+          .setCode("XPTO123")
+          .setName("Londres")
+          .setNif("NIF")
+          .setIban("IBAN")
+          .build()
+        def hotel = new Hotel(info, 20, 30, new Processor(new BankInterface(), new TaxInterface()))
         this.room = new Room(hotel, '01', Room.Type.SINGLE)
     }
 
