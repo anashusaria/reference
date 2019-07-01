@@ -13,13 +13,13 @@ import pt.ulisboa.tecnico.softeng.activity.services.remote.TaxInterface;
 public class ActivityProvider extends ActivityProvider_Base {
 	static final int CODE_SIZE = 6;
 
-	public ActivityProvider(String code, String name, String nif, String iban, Processor processor) {
-		checkArguments(code, name, nif, iban);
+	public ActivityProvider(InfoStruct info, Processor processor) {
+		checkArguments(info.getCode(), info.getName(), info.getNif(), info.getIban());
 
-		setCode(code);
-		setName(name);
-		setNif(nif);
-		setIban(iban);
+		setCode(info.getCode());
+		setName(info.getName());
+		setNif(info.getNif());
+		setIban(info.getIban());
 
 		setProcessor(processor);
 

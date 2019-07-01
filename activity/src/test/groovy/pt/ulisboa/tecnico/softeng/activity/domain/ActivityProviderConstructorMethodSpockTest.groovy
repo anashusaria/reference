@@ -19,7 +19,13 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	def 'success'() {
 		when:
 		def processor = new Processor(new BankInterface(), new TaxInterface())
-		def provider = new ActivityProvider(PROVIDER_CODE,PROVIDER_NAME,NIF,IBAN,processor)
+    def info = new InfoStruct.Builder()
+      .setCode(PROVIDER_CODE)
+      .setName(PROVIDER_NAME)
+      .setNif(NIF)
+      .setIban(IBAN)
+      .build()
+		def provider = new ActivityProvider(info, processor)
 
 		then:
 		provider.getName() == PROVIDER_NAME
@@ -31,7 +37,13 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('exceptions: #code, #prov, #nif, #iban')
 	def 'exceptions'() {
 		when:
-		new ActivityProvider(code, prov, nif, iban, new Processor(new BankInterface(), new TaxInterface()))
+    def info = new InfoStruct.Builder()
+      .setCode(code)
+      .setName(prov)
+      .setNif(nif)
+      .setIban(iban)
+      .build()
+		new ActivityProvider(info, new Processor(new BankInterface(), new TaxInterface()))
 
 		then:
 		thrown(ActivityException)
@@ -53,10 +65,22 @@ class ActivityProviderConstructorMethodSpockTest extends SpockRollbackTestAbstra
 	@Unroll('uniques: #cd1, #cd2, #n1, #n2, #nif1, #nif2')
 	def 'uniques'() {
 		given: 'an acitivity providr'
-		new ActivityProvider(cd1, n1, nif1, IBAN, new Processor(new BankInterface(), new TaxInterface()))
+    def info1 = new InfoStruct.Builder()
+      .setCode(cd1)
+      .setName(n1)
+      .setNif(nif1)
+      .setIban(IBAN)
+      .build()
+		new ActivityProvider(info1, new Processor(new BankInterface(), new TaxInterface()))
 
 		when: 'it is created another'
-		new ActivityProvider(cd2, n2, nif2, IBAN, new Processor(new BankInterface(), new TaxInterface()))
+    def info2 = new InfoStruct.Builder()
+      .setCode(cd2)
+      .setName(n2)
+      .setNif(nif2)
+      .setIban(IBAN)
+      .build()
+		new ActivityProvider(info2, new Processor(new BankInterface(), new TaxInterface()))
 
 		then: 'throws an exception'
 		def error = thrown(ActivityException)

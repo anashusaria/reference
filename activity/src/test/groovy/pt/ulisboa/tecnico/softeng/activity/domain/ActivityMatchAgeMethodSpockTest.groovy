@@ -12,8 +12,13 @@ class ActivityMatchAgeMethodSpockTest extends SpockRollbackTestAbstractClass {
 	@Override
 	def populate4Test() {
 		def processor = new Processor(new BankInterface(), new TaxInterface())
-		def provider = new ActivityProvider('XtremX','ExtremeAdventure','NIF','IBAN',processor)
-
+    def info = new InfoStruct.Builder()
+      .setCode('XtremX')
+      .setName('ExtremeAdventure')
+      .setNif('NIF')
+      .setIban('IBAN')
+      .build()
+    def provider = new ActivityProvider(info, processor)
 		activity = new Activity(provider,'Bush Walking',MIN_AGE,MAX_AGE,CAPACITY)
 	}
 

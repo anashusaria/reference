@@ -29,7 +29,13 @@ public class ActivityInterface {
     @Atomic(mode = TxMode.WRITE)
     public void createProvider(ActivityProviderData provider) {
         Processor processor = new Processor(new BankInterface(), new TaxInterface());
-        new ActivityProvider(provider.getCode(), provider.getName(), provider.getNif(), provider.getIban(), processor);
+        InfoStruct info = new InfoStruct.Builder()
+          .setCode(provider.getCode())
+          .setName(provider.getName())
+          .setNif(provider.getNif())
+          .setIban(provider.getIban())
+          .build();
+        new ActivityProvider(info, processor);
     }
 
     @Atomic(mode = TxMode.READ)
